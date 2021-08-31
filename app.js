@@ -1,21 +1,13 @@
 const express = require("express");
+const postBank = require("./postBank")
 const app = express();
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
-const PORT = 1337;
-
-app.listen(PORT, () => {
-  console.log(`App listening in port ${PORT}`);
-});
-
-app.get('/posts/:id', (req, res) => {
-  const id = req.params.id;
-  const post = postBank.find(id);
 
 app.get('/posts/:id', (req, res) => {
   const id = req.params.id
-  const post = find(id)
+  const post = postBank.find(id)
    if (!post.id) {
       // If the post wasn't found, just throw an error
       throw new Error('Not Found')
@@ -32,7 +24,7 @@ app.get('/posts/:id', (req, res) => {
   <body>
     <div class="news-list">
       <header><img src="/logo.png"/>Wizard News</header>
-      ${posts.map(post => `
+      ${postBank.list().map(post => `
         <div class='news-item'>
           <p>
             <span class="news-position">${post.id}. ▲</span>${post.title}
